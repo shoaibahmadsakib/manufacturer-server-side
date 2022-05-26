@@ -46,8 +46,6 @@ async function run() {
     const UserReview = client.db("Manufacturer").collection("review");
     const Userbio = client.db("Manufacturer").collection("bio");
 
-    //for checking connection
-
     app.get("/tools", async (req, res) => {
       const query = {};
       const cursor = userCollection.find(query);
