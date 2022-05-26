@@ -53,12 +53,15 @@ async function run() {
       res.send(users);
     });
     // find single id
+
+
     app.get("/tools/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await userCollection.findOne(query);
       res.send(result);
     });
+
 
     //delete
     app.delete('/tools/:id', async(req,res)=>{
@@ -68,12 +71,15 @@ async function run() {
       res.send(result)
   })
 
+
     //post
     app.post('/tools',verifyJWT, async (req, res) => {
       const tools = req.body;
       const result = await userCollection.insertOne(tools);
       res.send(result);
     });
+
+
     //user infor
     app.put("/user/:email", async (req, res) => {
       const email = req.params.email;
@@ -91,7 +97,7 @@ async function run() {
       res.send({ result, token });
     });
 
-    // ///////////
+
 
     app.post("/order", async (req, res) => {
       const booking = req.body;
