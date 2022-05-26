@@ -54,7 +54,6 @@ async function run() {
     });
     // find single id
 
-
     app.get("/tools/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
@@ -62,23 +61,20 @@ async function run() {
       res.send(result);
     });
 
-
     //delete
-    app.delete('/tools/:id', async(req,res)=>{
+    app.delete("/tools/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id :ObjectId(id)}
-      const result = await userCollection.deleteOne(query)
-      res.send(result)
-  })
-
+      const query = { _id: ObjectId(id) };
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
 
     //post
-    app.post('/tools',verifyJWT, async (req, res) => {
+    app.post("/tools", verifyJWT, async (req, res) => {
       const tools = req.body;
       const result = await userCollection.insertOne(tools);
       res.send(result);
     });
-
 
     //user infor
     app.put("/user/:email", async (req, res) => {
@@ -96,8 +92,6 @@ async function run() {
       });
       res.send({ result, token });
     });
-
-
 
     app.post("/order", async (req, res) => {
       const booking = req.body;
@@ -126,7 +120,7 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
- //every profile
+    //every profile
 
     app.put("/profile", async (req, res) => {
       const update = req.body;
@@ -174,12 +168,8 @@ async function run() {
     });
     //profile update
 
-
-
-
     //make admin
-  
-   
+
     app.get("/user/admin/:email", async (req, res) => {
       const email = req.params.email;
       const user = await UserEmail.findOne({ email: email });
@@ -204,21 +194,24 @@ async function run() {
     });
 
     // profile
-    app.put('/profile/:id',async (req,res)=>{
-      const id =req.params.id;
+    app.put("/profile/:id", async (req, res) => {
+      const id = req.params.id;
       const updateUser = req.body;
-      const filter ={_id: ObjectId(id)}
-      const options ={ upsert:true}
-      const updateDoct ={
-        $set:{
-         name: updateUser.name,
-         email: updateUser.email,
-
-        }
-      }
-      const result = await userCollection.updateOne(filter,updateDoct,options)
-      res.send(result)
-    })
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoct = {
+        $set: {
+          name: updateUser.name,
+          email: updateUser.email,
+        },
+      };
+      const result = await userCollection.updateOne(
+        filter,
+        updateDoct,
+        options
+      );
+      res.send(result);
+    });
 
     // app.put("/profile", async (req, res) => {
     //   const email = req.params.email;
