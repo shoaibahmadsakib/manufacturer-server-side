@@ -194,25 +194,49 @@ async function run() {
     });
 
     // profile
-    app.put("/profile/:id", async (req, res) => {
-      const id = req.params.id;
-      const updateUser = req.body;
-      const filter = { _id: ObjectId(id) };
+    // app.put("/profile/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const updateUser = req.body;
+    //   const filter = { _id: ObjectId(id) };
+    //   const options = { upsert: true };
+    //   const updateDoct = {
+    //     $set: {
+    //       name: updateUser.name,
+    //       email: updateUser.email,
+    //     },
+    //   };
+    //   const result = await userCollection.updateOne(
+    //     filter,
+    //     updateDoct,
+    //     options
+    //   );
+    //   res.send(result);
+    // });
+
+    ////////////
+    ///
+    app.get("/profile", async (req, res) => {
+      const query = {};
+      const cursor = Userbio.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
+
+    ///
+    app.put("/profile/:email", async (req, res) => {
+      const { email } = req.params.email;
+      const user = req.body;
+      const filter = { email };
       const options = { upsert: true };
       const updateDoct = {
         $set: {
-          name: updateUser.name,
-          email: updateUser.email,
+          email,
+          ...user,
         },
       };
-      const result = await userCollection.updateOne(
-        filter,
-        updateDoct,
-        options
-      );
+      const result = await UserProfile.updateOne(filter, updateDoct, options);
       res.send(result);
     });
-
     // app.put("/profile", async (req, res) => {
     //   const email = req.params.email;
     //   const user = req.body;
