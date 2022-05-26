@@ -175,12 +175,8 @@ async function run() {
 
     //make admin
   
-    app.get("/user/admin/:email", async (req, res) => {
-      const email = req.params.email;
-      const user = await UserEmail.findOne({ email: email });
-      const isAdmin = user.role === "admin";
-      res.send({ admin: isAdmin });
-    });
+   
+
 
     app.put("/user/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
@@ -197,21 +193,23 @@ async function run() {
         res.status(403).send({ message: "forbidden" });
       }
     });
-    // app.put('/profile/:id',async (req,res)=>{
-    //   const id =req.params.id;
-    //   const updateUser = req.body;
-    //   const filter ={_id: ObjectId(id)}
-    //   const options ={ upsert:true}
-    //   const updateDoct ={
-    //     $set:{
-    //      name: updateUser.name,
-    //      email: updateUser.email,
 
-    //     }
-    //   }
-    //   const result = await userCollection.updateOne(filter,updateDoct,options)
-    //   res.send(result)
-    // })
+    // profile
+    app.put('/profile/:id',async (req,res)=>{
+      const id =req.params.id;
+      const updateUser = req.body;
+      const filter ={_id: ObjectId(id)}
+      const options ={ upsert:true}
+      const updateDoct ={
+        $set:{
+         name: updateUser.name,
+         email: updateUser.email,
+
+        }
+      }
+      const result = await userCollection.updateOne(filter,updateDoct,options)
+      res.send(result)
+    })
 
     // app.put("/profile", async (req, res) => {
     //   const email = req.params.email;
