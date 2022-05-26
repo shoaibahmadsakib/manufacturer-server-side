@@ -122,8 +122,7 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
-
-    //every profile
+ //every profile
 
     app.put("/profile", async (req, res) => {
       const update = req.body;
@@ -145,8 +144,6 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
-
-    ////
 
     //review
 
@@ -172,6 +169,9 @@ async function run() {
       res.send(users);
     });
     //profile update
+
+
+
 
     //make admin
   
