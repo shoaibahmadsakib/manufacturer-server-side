@@ -113,6 +113,16 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
+
+    //oreder id for payment
+    app.get("/order/:id", async (req, res) => {
+      const id = req.params.id;
+      const quary = { _id: ObjectId(id) }
+      const orderHere = await OrderCollection.findOne(quary);
+      res.send(orderHere)
+
+
+    });
     // user
     app.get("/user", async (req, res) => {
       const query = {};
